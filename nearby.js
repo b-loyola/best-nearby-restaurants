@@ -5,7 +5,6 @@ script.appendTo($('body'));
 
 var infoWindow = null;
 var searchResults = [];
-// var resultsLoaded = null;
 var myPosition = null;
 var lowestRating = 4;
 var directionsDisplay;
@@ -100,21 +99,22 @@ function initMap() {
         return result.rating > lowestRating;
       });
 
+      results = results.sort(function(a,b){
+        return b.rating - a.rating;
+      });
+
       // for each place in result, create an <a> tag and a marker.
       results.forEach(function(place, i){
         var element = document.createElement("a");
         element.setAttribute('href', '#');
         element.setAttribute('data-index', i);
+        element.setAttribute('class', "list-group-item");
         element.addEventListener("click", showDirections);
-        var node = document.createTextNode(place.name);
+        var node = document.createTextNode(place.name + " - " + place.rating + " / 5");
         element.appendChild(node);
         document.getElementById('list').appendChild(element);
         createMarker(place);
       });
-      
-      // var event = document.createEvent('Event');
-      // event.initEvent('load', true, true);
-      // document.getElementById('map').dispatchEvent(event);
 
     }
   }
@@ -131,30 +131,10 @@ function initMap() {
 
     searchResults.push(marker);
     google.maps.event.addListener(marker, 'click', function(){
-      windowContent = "<h3>"+this.title+"</h3>"+"<p>"+"Rating: "+"<strong>"+this.rating+"</strong>"+" / 5"+"</p>";
+      windowContent = "<h5>"+this.title+"</h5>"+"<p>"+"Rating: "+"<strong>"+this.rating+"</strong>"+" / 5"+"</p>";
       calcRoute(this.position);
       infoWindow.setContent(windowContent);
       infoWindow.open(map, this);
     });
   }
 }
-
-
-
-$(function(){
-
-  // var $list = $('#list');
-
-  // $('#map').on('load', function(){
-
-  //   searchResults.forEach(function(result){
-  //     $('<a>').addClass('list-group-item').attr('href', '#').attr('data-id', result.id).text(result.name).appendTo($list);
-  //   });
-
-  // });
-
-  // $list.on('click', 'a', function(){
-  //   console.log($(this).data('id'));
-  // });
-
-});

@@ -4,6 +4,7 @@
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script type="text/javascript" src=".env"></script>
+    <link rel="stylesheet" type="text/css" href="public/stylesheets/bootstrap.min.css"/>
 
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
@@ -23,8 +24,22 @@
     </style>
   </head>
   <body>
-    <div id="map"></div>  
-    <div id="list"></div>
+
+    <div class="container">
+
+      <div class="col-xs-12">
+        <h3>Best Nearby Restaurants</h3>
+      </div>
+
+      <div class="col-xs-12 col-md-8">
+        <div id="map"></div>
+      </div>
+
+      <div class="col-xs-12 col-md-4">
+        <div id="list" class="list-group"></div>
+      </div>
+
+    </div>
   </body>
   <script type="text/javascript" src="nearby.js"></script>
 </html>
